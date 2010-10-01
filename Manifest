@@ -1,0 +1,5 @@
+Manifest
+README.markdown
+Rakefile
+examples/demo.rb
+lib/tween.rb

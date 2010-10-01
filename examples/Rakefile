@@ -1,0 +1,42 @@
+require 'base64'
+require 'yaml'
+require 'tempfile'
+require 'fileutils'
+
+def compile_directory(dir)
+  store = {}
+  
+  Dir["#{dir}/*.png"].each do|png|
+    File.open(png, "rb") do|f|
+      b64 = Base64.encode64(f.read)
+      store[File.basename(png)] = b64
+    end
+  end
+  
+  store
+end
+
+task :compile, [:directory] do |t, args|
+  puts compile_directory(args.directory).to_yaml 
+end
+
+task :insert, [:directory, :file] do|t, args|
+  store = compile_directory(args.directory)
+  
+  Tempfile.open('Rakefile') do|tmp|
+    File.open(args.file) do|file|
+      begin
+        line = file.gets.chomp
+        tmp.puts(line)
+      end until line == "__END__"
+      
+      tmp.puts(store.to_yaml)
+    end
+    
+    FileUtils.mv( tmp.path, args.file )
+  end
+end
+
+task :default do |t|
+  Rake::Task[:insert].invoke( 'images', 'demo.rb' )
+end

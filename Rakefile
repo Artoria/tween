@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('tween', '0.1.1') do |p|
+Echoe.new('tween', '0.1.2') do |p|
   p.description = "Fluid motion using tweens for Ruby"
   p.url = "http://ruby.about.com/"
   p.author = "Michael Morin"

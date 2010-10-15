@@ -15,11 +15,11 @@ class Tween
     @start, @finish = start, finish
     @easer, @duration = easer, duration
     
-    unless @start.respond_to? :[]
+    unless @start.is_a? Enumerable
       @start = [@start]
     end
 
-    unless @finish.respond_to? :[]
+    unless @finish.is_a? Enumerable
       @finish = [@finish]
     end
 

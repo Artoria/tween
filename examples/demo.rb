@@ -52,6 +52,14 @@ class MyWindow < Gosu::Window
     @x, @y = width / 2, height / 2
     @tween = nil
     @easer = Tween::EASERS[0]
+
+    begin
+      require 'gl'
+
+      Gl.glEnable(Gl::GL_LINE_SMOOTH)
+      Gl.glHint(Gl::GL_LINE_SMOOTH_HINT, Gl::GL_NICEST)
+    rescue LoadError
+    end
   end
   
   

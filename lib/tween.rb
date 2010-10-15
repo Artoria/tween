@@ -15,6 +15,14 @@ class Tween
     @start, @finish = start, finish
     @easer, @duration = easer, duration
     
+    unless @start.respond_to? :[]
+      @start = [@start]
+    end
+
+    unless @finish.respond_to? :[]
+      @finish = [@finish]
+    end
+
     @time = 0
     @done = false
   end
@@ -36,6 +44,7 @@ class Tween
     )
   end
   
+  def value; self[0]; end
   def x; self[0]; end
   def y; self[1]; end
   def z; self[2]; end
